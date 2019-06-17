@@ -1,0 +1,4 @@
+def print_file(name):
+  f = open(name)
+  text = f.read()
+  print(text)
