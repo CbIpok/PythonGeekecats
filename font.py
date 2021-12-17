@@ -2,8 +2,9 @@ from __future__ import print_function
 from PIL import Image
 from PIL import ImageFont
 from PIL import ImageDraw
+import time
 import numpy as np
-import block
+import mcpi.block
 from mcpi.minecraft import Minecraft
 
 
@@ -11,7 +12,7 @@ mc = Minecraft.create()
 start_x = start_y = start_z = end_x = end_y = end_z = 0
 
 
-def char_to_pixels(text, path='res/font.ttf', fontsize=20):
+def chars_to_pixels(text, path='res/font.ttf', fontsize=20):
     font = ImageFont.truetype(path, fontsize)
     w, h = font.getsize(text)
     h *= 2
@@ -24,11 +25,12 @@ def char_to_pixels(text, path='res/font.ttf', fontsize=20):
     return arr
 
 
-def print_text(pos_x, pos_y, pos_z, text, fontsize=20):
+def print_text(pos_x, pos_y, pos_z, text,block,fontsize=20):
     global start_x, start_y, start_z, end_x, end_y, end_z
     mc.setBlocks(start_x, start_y, start_z, end_x, end_y, end_z, 0)
-    arr = char_to_pixels(text, fontsize=fontsize)
-    mc.setBlocks(pos_x, pos_y, pos_z, pos_x + len(arr[0]), pos_y + len(arr) + 1, pos_z, block.WOOL)
+    arr = chars_to_pixels(text, fontsize=fontsize)
+    print(arr)
+    mc.setBlocks(pos_x, pos_y, pos_z, pos_x + len(arr[0]), pos_y + len(arr) + 1, pos_z, block)
     for y in range(len(arr)):
         for x in range(len(arr[y])):
             if arr[y][x] == 1:

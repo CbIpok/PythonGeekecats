@@ -57,3 +57,12 @@ def get_wool_id_texture(path_to_file, resize_width_to):
             wool_id = get_wool_id_by_rgb(pixel)
             wool_id_texture[y].append(wool_id)
     return wool_id_texture
+
+
+
+
+def print_image(pos,mc):
+    tex = get_wool_id_texture('res/3.jpg',100)
+    for y in range(len(tex)):
+        for x in range(len(tex[0])):
+            mc.setBlock(pos.x + x, pos.y - y, pos.z, (35, tex[y][x]))
